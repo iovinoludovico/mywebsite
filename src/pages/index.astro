@@ -3,9 +3,11 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Metrics from '../components/Metrics.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { profile, selectedPublications, teaching, service } from '../lib/data';
+import { profile, teaching, service } from '../lib/data';
+import { getPublications } from '../lib/publications';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const latest = (await getPublications()).slice(0, 5);
 ---
 <Base>
   <section class="card">
@@ -31,14 +33,14 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
   <section class="card">
     <div class="section-head">
-      <h2>Selected publications</h2>
+      <h2>Recent publications</h2>
       <a href="/publications/">See all →</a>
     </div>
     <ul class="rows">
-      {selectedPublications.map((p) => (
+      {latest.map((p) => (
         <li>
           <div class="row-title">{p.url ? <a href={p.url}>{p.title}</a> : p.title}</div>
-          <div class="row-meta">{p.authors} · {p.venue}, {p.year}</div>
+          <div class="row-meta">{p.authors.map((a) => a.name).join(', ')} · {p.venue}, {p.year}</div>
         </li>
       ))}
     </ul>

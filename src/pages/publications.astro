@@ -1,16 +1,166 @@
 ---
 import Base from '../layouts/Base.astro';
-import BibBase from '../components/BibBase.astro';
+import { getPublications, TYPE_ORDER } from '../lib/publications';
 import { profile } from '../lib/data';
+
+const pubs = await getPublications();
+const counts = TYPE_ORDER.map((t) => ({ type: t, n: pubs.filter((p) => p.type === t).length })).filter((c) => c.n > 0);
+const years = [...new Set(pubs.map((p) => p.year))];
 const scholar = profile.links.find((l) => l.label === 'Google Scholar')?.url;
 const orcid = profile.links.find((l) => l.label === 'ORCID')?.url;
 ---
 <Base title="Publications" description="Full list of publications by Ludovico Iovino: journal articles, conference papers and book chapters.">
   <section class="card">
     <h1 class="page-title">Publications</h1>
-    <p class="lead">Journal articles, conference papers and book chapters. The list updates automatically from my BibTeX file. Citation metrics are on <a href={scholar}>Google Scholar</a> and <a href={orcid}>ORCID</a>.</p>
+    <p class="lead">
+      {pubs.length} publications: {counts.map((c) => `${c.n} ${c.type.toLowerCase()}`).join(', ')}.
+      Citation metrics are on <a href={scholar}>Google Scholar</a> and <a href={orcid}>ORCID</a>.
+    </p>
   </section>
+
   <section class="card">
-    <BibBase />
+    <div class="toolbar" data-pub-toolbar hidden>
+      <div class="chips" role="group" aria-label="Filter by type">
+        <button type="button" class="chip" data-type="" aria-pressed="true">All <span>{pubs.length}</span></button>
+        {counts.map((c) => (
+          <button type="button" class="chip" data-type={c.type} aria-pressed="false">{c.type} <span>{c.n}</span></button>
+        ))}
+      </div>
+      <label class="search">
+        <span class="visually-hidden">Search publications</span>
+        <input type="search" placeholder="Search title, author, venue…" data-pub-search />
+      </label>
+    </div>
+    <p class="small subtle empty" data-pub-empty hidden>No publications match.</p>
+
+    {years.map((year) => (
+      <section class="year" data-year>
+        <h2>{year}</h2>
+        <ol class="rows">
+          {pubs.filter((p) => p.year === year).map((p) => (
+            <li data-pub data-type={p.type} data-text={`${p.title} ${p.authors.map((a) => a.name).join(' ')} ${p.venue}`.toLowerCase()}>
+              <div class="row-title">{p.url ? <a href={p.url}>{p.title}</a> : p.title}</div>
+              {p.authors.length > 0 && (
+                <div class="authors">
+                  {p.authors.map((a, i) => (
+                    <>{i > 0 && ', '}{a.isOwner ? <strong>{a.name}</strong> : a.name}</>
+                  ))}
+                </div>
+              )}
+              <div class="row-meta">
+                <span class="type">{p.type}</span>
+                {p.venue && <em>{p.venue}</em>}{p.details && `, ${p.details}`}
+              </div>
+              <div class="links">
+                {p.doi && <a href={`https://doi.org/${p.doi}`} class="tag">DOI</a>}
+                <details>
+                  <summary class="tag">BibTeX</summary>
+                  <div class="bib">
+                    <pre>{p.bibtex}</pre>
+                    <button type="button" class="copy" data-copy>Copy</button>
+                  </div>
+                </details>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
   </section>
 </Base>
+
+<script>
+  const toolbar = document.querySelector<HTMLElement>('[data-pub-toolbar]');
+  const search = document.querySelector<HTMLInputElement>('[data-pub-search]');
+  const empty = document.querySelector<HTMLElement>('[data-pub-empty]');
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('.chip')];
+  const items = [...document.querySelectorAll<HTMLElement>('[data-pub]')];
+  const years = [...document.querySelectorAll<HTMLElement>('[data-year]')];
+  let type = '';
+
+  function apply() {
+    const terms = (search?.value ?? '').toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const li of items) {
+      const ok = (!type || li.dataset.type === type) && terms.every((t) => li.dataset.text!.includes(t));
+      li.hidden = !ok;
+      if (ok) shown++;
+    }
+    for (const y of years) y.hidden = !y.querySelector('[data-pub]:not([hidden])');
+    if (empty) empty.hidden = shown > 0;
+  }
+
+  if (toolbar) toolbar.hidden = false;
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      type = chip.dataset.type ?? '';
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      apply();
+    }),
+  );
+  search?.addEventListener('input', apply);
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) =>
+    btn.addEventListener('click', async () => {
+      const text = btn.parentElement?.querySelector('pre')?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = 'Copied';
+      } catch {
+        btn.textContent = 'Select and copy';
+      }
+      setTimeout(() => (btn.textContent = 'Copy'), 2000);
+    }),
+  );
+</script>
+
+<style>
+  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .toolbar[hidden] { display: none; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px;
+    border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink);
+    font: inherit; font-size: var(--fs-small); font-weight: 600; cursor: pointer;
+  }
+  .chip span { color: var(--subtle); font-weight: 500; }
+  .chip:hover { border-color: var(--accent); }
+  .chip[aria-pressed='true'] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+  .chip[aria-pressed='true'] span { color: inherit; opacity: 0.75; }
+  .search { flex: 1 1 240px; max-width: 360px; }
+  .search input {
+    width: 100%; min-height: 40px; padding: 0 14px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: var(--fs-small);
+  }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .empty { margin: 16px 0 0; }
+
+  .year h2 { margin: 24px 0 0; padding-bottom: 8px; border-bottom: 2px solid var(--ink); font-size: 22px; font-weight: 800; }
+  .year[hidden], [data-pub][hidden] { display: none; }
+  .authors { font-size: var(--fs-small); color: var(--muted); }
+  .authors strong { color: var(--ink); }
+  .row-meta em { font-style: italic; }
+  .type {
+    display: inline-block; margin-right: 6px; padding: 0 8px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; background: var(--bg); color: var(--muted); font-style: normal;
+  }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; align-items: flex-start; margin-top: 8px; }
+  .tag {
+    display: inline-flex; align-items: center; min-height: 28px; padding: 0 10px; border-radius: 999px;
+    font-size: 13px; font-weight: 700; background: var(--accent-soft); color: var(--accent); text-decoration: none; cursor: pointer;
+  }
+  .tag:hover { color: var(--accent-hover); }
+  details { flex: 1 1 100%; }
+  details:not([open]) { flex: 0 0 auto; }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .bib { position: relative; margin-top: 8px; }
+  .bib pre {
+    margin: 0; padding: 12px 72px 12px 12px; border-radius: var(--radius-sm); background: var(--bg);
+    font-size: 12px; white-space: pre-wrap; word-break: break-word; color: var(--ink);
+  }
+  .copy {
+    position: absolute; top: 8px; right: 8px; min-height: 28px; padding: 0 10px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-size: 12px; cursor: pointer;
+  }
+</style>

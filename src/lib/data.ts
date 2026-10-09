@@ -4,7 +4,6 @@ import profileRaw from '../data/profile.yaml?raw';
 import cvRaw from '../data/cv.yaml?raw';
 import teachingRaw from '../data/teaching.yaml?raw';
 import serviceRaw from '../data/service.yaml?raw';
-import selectedRaw from '../data/selected-publications.yaml?raw';
 import metricsJson from '../data/metrics.json';
 
 export interface Link { label: string; url: string }
@@ -49,16 +48,8 @@ export interface Metrics {
   scopus: { hIndex: number; citations: number; documents: number | null; updated: string | null };
 }
 
-export interface SelectedPublication { year: number; title: string; authors: string; venue: string; url?: string }
-
 export const profile = parse(profileRaw) as Profile;
 export const cv = parse(cvRaw) as Cv;
 export const teaching = parse(teachingRaw) as Teaching;
 export const service = parse(serviceRaw) as Service;
 export const metrics = metricsJson as Metrics;
-export const selectedPublications = (parse(selectedRaw) as { items: SelectedPublication[] }).items;
-
-export const BIBBASE_URL =
-  'https://bibbase.org/show?bib=https://raw.githubusercontent.com/iovinoludovico/publications/refs/heads/main/publications.bib&noBootstrap=1&jsonp=1';
-export const BIBBASE_PAGE =
-  'https://bibbase.org/show?bib=https://raw.githubusercontent.com/iovinoludovico/publications/refs/heads/main/publications.bib';
