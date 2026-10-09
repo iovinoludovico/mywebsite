@@ -1,0 +1,84 @@
+---
+import '@fontsource-variable/manrope';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
+import { profile } from '../lib/data';
+
+interface Props { title?: string; description?: string }
+const { title, description = profile.tagline } = Astro.props;
+const fullTitle = title ? `${title} · ${profile.name}` : `${profile.name} · ${profile.title}, ${profile.affiliation}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(profile.photo, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.title,
+  url: Astro.site?.toString(),
+  image: ogImage.toString(),
+  affiliation: { '@type': 'Organization', name: profile.affiliation, url: profile.affiliationUrl },
+  sameAs: profile.links.map((l) => l.url),
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#14213D" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div class="shell">
+      <Sidebar />
+      <main id="content" class="main">
+        <slot />
+        <footer class="site-footer small subtle">
+          © {new Date().getFullYear()} {profile.name} · {profile.affiliation}
+        </footer>
+      </main>
+    </div>
+    <script is:inline>
+      document.querySelectorAll('.js-email').forEach(function (a) {
+        var e = a.dataset.u + '@' + a.dataset.d;
+        a.href = 'mailto:' + e;
+        a.textContent = e;
+      });
+      document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var root = document.documentElement;
+          var dark = root.dataset.theme
+            ? root.dataset.theme === 'dark'
+            : matchMedia('(prefers-color-scheme: dark)').matches;
+          var next = dark ? 'light' : 'dark';
+          root.dataset.theme = next;
+          try { localStorage.setItem('theme', next); } catch (e) {}
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .site-footer { padding: 8px 4px 0; }
+</style>

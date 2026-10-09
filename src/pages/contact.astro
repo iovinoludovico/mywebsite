@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Email from '../components/Email.astro';
+import { profile } from '../lib/data';
+---
+<Base title="Contact" description="How to reach Ludovico Iovino at the Gran Sasso Science Institute.">
+  <section class="card">
+    <h1 class="page-title">Contact</h1>
+    <p class="lead">For research collaborations, PhD applications and thesis topics, email is the best way to reach me.</p>
+  </section>
+  <section class="grid-2">
+    <div class="card card--tight">
+      <h2>Reach me</h2>
+      <dl>
+        <dt>Email</dt><dd><Email /></dd>
+        <dt>Phone</dt><dd><a href={`tel:${profile.contact.phone.replace(/\s/g, '')}`}>{profile.contact.phone}</a></dd>
+        <dt>Address</dt><dd>{profile.contact.address}</dd>
+      </dl>
+    </div>
+    <div class="card card--tight">
+      <h2>Profiles</h2>
+      <ul class="profiles">
+        {profile.links.map((l) => <li><a href={l.url} rel="me noopener">{l.label}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  dl { margin: 0; }
+  dt { font-size: var(--fs-xs); font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 14px; }
+  dt:first-child { margin-top: 0; }
+  dd { margin: 2px 0 0; }
+  .profiles { list-style: none; margin: 0; padding: 0; }
+  .profiles a { display: flex; align-items: center; min-height: 40px; font-weight: 600; }
+</style>

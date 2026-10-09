@@ -1,0 +1,38 @@
+---
+// Values come from src/data/metrics.json: Scholar is refreshed weekly by
+// .github/workflows/update-metrics.yml, Scopus is edited by hand.
+import { metrics, profile } from '../lib/data';
+
+const url = (label: string) => profile.links.find((l) => l.label === label)?.url;
+const fmt = new Intl.NumberFormat('en-US');
+const items = [
+  { label: 'Scholar h-index', value: metrics.scholar.hIndex, url: url('Google Scholar') },
+  { label: 'Scholar citations', value: metrics.scholar.citations, url: url('Google Scholar') },
+  { label: 'Scopus h-index', value: metrics.scopus.hIndex, url: url('Scopus') },
+  { label: 'Scopus citations', value: metrics.scopus.citations, url: url('Scopus') },
+];
+
+const fmtDate = (d: string) =>
+  new Date(`${d}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const notes = [
+  metrics.scholar.updated && `Scholar updated ${fmtDate(metrics.scholar.updated)}`,
+  metrics.scopus.updated && `Scopus updated ${fmtDate(metrics.scopus.updated)}`,
+].filter(Boolean);
+---
+<section class="grid-4" aria-label="Academic metrics">
+  {items.map((m) => (
+    <a class="metric card card--tight" href={m.url} rel="noopener">
+      <span class="value">{fmt.format(m.value)}</span>
+      <span class="label">{m.label}</span>
+    </a>
+  ))}
+</section>
+{notes.length > 0 && <p class="note small subtle">{notes.join(' · ')}.</p>}
+
+<style>
+  .metric { display: block; text-decoration: none; color: var(--ink); padding: 20px; }
+  .metric:hover .label { color: var(--accent); }
+  .value { display: block; font-size: 32px; font-weight: 800; line-height: 1.2; }
+  .label { display: block; font-size: var(--fs-xs); color: var(--subtle); }
+  .note { margin: -12px 4px 0; }
+</style>

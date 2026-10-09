@@ -1,0 +1,47 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { profile } from '../lib/data';
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Research" description="Research areas and funded projects of Ludovico Iovino.">
+  <section class="card">
+    <h1 class="page-title">Research</h1>
+    <p class="lead">My work spans model-driven engineering, software architectures, smart cities and digital twins.</p>
+  </section>
+
+  <section class="grid-2" aria-label="Research areas">
+    {profile.research.map((r) => (
+      <article class="card card--tight area">
+        {r.image && <img src={r.image} alt="" loading="lazy" width="600" height="300" />}
+        <h2>{r.title}</h2>
+        <p class="muted">{r.text}</p>
+      </article>
+    ))}
+  </section>
+
+  <section aria-labelledby="projects-h">
+    <h2 id="projects-h" class="h">Funded projects</h2>
+    <div class="grid-3">{projects.map((p) => <ProjectCard project={p} />)}</div>
+  </section>
+
+  <section class="card">
+    <h2>Memberships</h2>
+    <ul class="members">
+      {profile.memberships.map((m) => (
+        <li><a href={m.url}>{m.logo && <img src={m.logo} alt="" width="40" height="40" loading="lazy" />}<span>{m.name}</span></a></li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .area img { width: 100%; height: 160px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 16px; }
+  .area h2 { font-size: var(--fs-h3); margin: 0 0 6px; }
+  .h { font-size: var(--fs-h2); font-weight: 800; margin: 8px 4px 12px; }
+  .members { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 32px; }
+  .members a { display: flex; align-items: center; gap: 12px; min-height: 44px; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .members a:hover { color: var(--accent); }
+  .members img { width: 40px; height: 40px; object-fit: contain; background: #FFFFFF; border-radius: 8px; padding: 4px; }
+</style>

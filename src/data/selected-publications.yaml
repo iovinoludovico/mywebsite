@@ -1,0 +1,27 @@
+# Shown on the home page. The full, always-current list is on /publications (BibBase).
+items:
+  - year: 2026
+    title: Assessing Capabilities of Large Language Models for Multi-Level Modeling
+    authors: Fedeli, Iovino, Rossi, Rutle
+    venue: MODELS Companion 2026
+    url: https://doi.org/10.1145/3837062.3838699
+  - year: 2026
+    title: "Edelta: a versatile framework for migrating clients' EMF models"
+    authors: Bettini, Di Salle, Iovino
+    venue: Software and Systems Modeling
+    url: https://doi.org/10.1007/s10270-025-01357-3
+  - year: 2025
+    title: A low-code assessment platform for urban digital twins
+    authors: De Sanctis, Iovino, Rossi, Wimmer
+    venue: Information and Software Technology
+    url: https://doi.org/10.1016/j.infsof.2025.107726
+  - year: 2025
+    title: How low-code platforms support digital twins of processes
+    authors: Fedeli, Di Salle, Micucci, Rebelo, Rossi, Mariani, Iovino
+    venue: Software and Systems Modeling
+    url: https://doi.org/10.1007/s10270-025-01310-4
+  - year: 2025
+    title: Ethical Risk Traceability in Smart City KPIs Assessment
+    authors: De Sanctis, Iovino, Rossi
+    venue: IET Smart Cities
+    url: https://doi.org/10.1049/smc2.70012

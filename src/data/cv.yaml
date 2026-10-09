@@ -1,0 +1,41 @@
+experience:
+  - { period: 2024 – present, role: Associate Professor, org: Gran Sasso Science Institute, logo: /images/logos/gssi.png }
+  - { period: 2015 – 2024, role: Assistant Professor, org: Gran Sasso Science Institute, logo: /images/logos/gssi.png }
+  - { period: 2013 – 2015, role: Postdoctoral Researcher, org: University of L'Aquila, logo: /images/logos/univaq.png }
+  - { period: 2006 – 2008, role: Software Analyst, org: Regione Abruzzo, logo: /images/logos/regione-abruzzo.png }
+education:
+  - { period: 2021 – 2030, role: National Scientific Habilitation (ASN), org: "Sectors 01/B1 and 09/H1" }
+  - { period: "2013", role: PhD in Computer Science and Applications, org: University of L'Aquila }
+  - { period: "2009", role: Master's Degree in Computer Science, org: University of L'Aquila, note: "110/110 cum laude" }
+  - { period: "2007", role: Master in Web Technology, org: University of L'Aquila }
+awards:
+  - year: "2023"
+    title: Ten-Year Most Influential Paper Award
+    venue: SoSyM Journal
+    text: >-
+      "Managing the evolution of data-intensive Web applications by model-driven techniques"
+      received the ten-year most influential regular paper award.
+  - year: "2023"
+    title: Journal-First selection
+    venue: SoSyM Journal / MODELS 2023
+    text: >-
+      "Reference architectures modelling and compliance checking" was selected among the best
+      SoSyM papers to be presented as journal-first at MODELS 2023.
+  - year: "2021"
+    title: Journal-First selection
+    venue: SoSyM Journal / MODELS 2021
+    text: >-
+      "MIKADO – A Smart City KPIs Assessment Modeling Framework" was selected among the best
+      SoSyM papers to be presented as journal-first at MODELS 2021.
+  - year: "2019"
+    title: Best Paper Award
+    venue: MODELS 2019
+    text: >-
+      "Automated Classification of Metamodel Repositories: A Machine Learning Approach", with
+      Phuong Nguyen, Juri Di Rocco, Davide Di Ruscio and Alfonso Pierantonio.
+  - year: "2011"
+    title: 1st Prize, Business Plan Competition
+    venue: University of L'Aquila
+    text: >-
+      First prize in the 2010–2011 competition organized by the university's technology
+      transfer office, with the project BusOnAir.

@@ -1,0 +1,77 @@
+/* Design tokens: direction "C · Modern Lab" from the Claude Design canvas.
+   This file is the only bridge between the design and the code. */
+:root {
+  --font-sans: 'Manrope Variable', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --bg: #F3F5F8;
+  --surface: #FFFFFF;
+  --ink: #14213D;
+  --muted: #46536B;
+  --subtle: #56627A;
+  --line: #E6EAF0;
+
+  --side-bg: #14213D;
+  --side-ink: #FFFFFF;
+  --side-text: #D3DAE6;
+  --side-muted: #B9C3D6;
+  --side-line: rgba(255, 255, 255, 0.15);
+  --side-active: rgba(255, 255, 255, 0.08);
+
+  --accent: #A63A0A;
+  --accent-hover: #7E2C07;
+  --accent-soft: #FBEDE6;
+  --accent-on-dark: #F4B39A;
+
+  --card-dark-bg: #14213D;
+  --card-dark-ink: #FFFFFF;
+  --card-dark-text: #C9D1DF;
+
+  --radius-lg: 20px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+  --space: 24px;
+  --gutter: 32px;
+
+  --fs-display: clamp(28px, 4vw, 40px);
+  --fs-h2: 26px;
+  --fs-h3: 18px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-xs: 13px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0C1322;
+    --surface: #151F36;
+    --ink: #E8ECF3;
+    --muted: #B3BED2;
+    --subtle: #9CA8BF;
+    --line: #26324C;
+    --side-bg: #1B2745;
+    --side-active: rgba(255, 255, 255, 0.1);
+    --accent: #F08A5D;
+    --accent-hover: #F6A884;
+    --accent-soft: #3A2418;
+    --card-dark-bg: #1F2D50;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0C1322;
+  --surface: #151F36;
+  --ink: #E8ECF3;
+  --muted: #B3BED2;
+  --subtle: #9CA8BF;
+  --line: #26324C;
+  --side-bg: #1B2745;
+  --side-active: rgba(255, 255, 255, 0.1);
+  --accent: #F08A5D;
+  --accent-hover: #F6A884;
+  --accent-soft: #3A2418;
+  --card-dark-bg: #1F2D50;
+  color-scheme: dark;
+}

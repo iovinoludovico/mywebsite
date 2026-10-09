@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import BibBase from '../components/BibBase.astro';
+import { profile } from '../lib/data';
+const scholar = profile.links.find((l) => l.label === 'Google Scholar')?.url;
+const orcid = profile.links.find((l) => l.label === 'ORCID')?.url;
+---
+<Base title="Publications" description="Full list of publications by Ludovico Iovino: journal articles, conference papers and book chapters.">
+  <section class="card">
+    <h1 class="page-title">Publications</h1>
+    <p class="lead">Journal articles, conference papers and book chapters. The list updates automatically from my BibTeX file. Citation metrics are on <a href={scholar}>Google Scholar</a> and <a href={orcid}>ORCID</a>.</p>
+  </section>
+  <section class="card">
+    <BibBase />
+  </section>
+</Base>

@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { service, cv } from '../lib/data';
+---
+<Base title="Service" description="Editorial boards, guest editing, reviewing and awards.">
+  <section class="card">
+    <h1 class="page-title">Service &amp; recognition</h1>
+    <p class="lead">Editorial roles for international journals, review activity and awards.</p>
+  </section>
+
+  <section class="card">
+    <h2>Editorial boards and special issues</h2>
+    <ul class="rows">
+      {service.editorial.map((e) => (
+        <li class="split">
+          <div>
+            <div class="row-title">{e.role}, {e.url ? <a href={e.url}>{e.venue}</a> : e.venue}</div>
+            {e.detail && <div class="row-meta">{e.detail}</div>}
+            {e.certificate && <div class="row-meta"><a href={e.certificate}>Certificate (PDF)</a></div>}
+          </div>
+          <span class="period">{e.period}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Reviewer for international journals</h2>
+    <ul class="tags">{service.reviewer.map((r) => <li>{r}</li>)}</ul>
+  </section>
+
+  <section class="card" id="awards">
+    <h2>Awards</h2>
+    <ul class="rows">
+      {cv.awards.map((a) => (
+        <li class="split">
+          <div><div class="row-title">{a.title}</div><div class="row-meta">{a.venue}</div><p class="small muted">{a.text}</p></div>
+          <span class="period">{a.year}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .split { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+  .split p { margin: 6px 0 0; }
+  .period { flex: none; font-size: var(--fs-small); font-weight: 700; color: var(--accent); }
+  .tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tags li { font-size: var(--fs-small); padding: 6px 12px; border-radius: 999px; background: var(--bg); }
+  @media (max-width: 560px) { .split { flex-direction: column-reverse; gap: 2px; } }
+</style>

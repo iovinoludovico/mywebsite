@@ -1,0 +1,44 @@
+courses:
+  - period: 2022 – 2025
+    title: Theory and Application of Model-Driven Engineering
+    kind: Core course
+    role: Main instructor
+    org: GSSI
+  - period: 2022 – 2023
+    title: Engineering and Quality Management of Human-Centric and Smart Systems
+    kind: Core course
+    role: Co-instructor
+    org: GSSI
+  - period: 2022 – 2025
+    title: Introduction to Software Engineering
+    kind: Course for first-year PhD students
+    role: Co-instructor
+    org: GSSI
+  - period: 2017 – 2021
+    title: Software Systems and Services
+    kind: Course for first-year PhD students
+    role: Main instructor
+    org: GSSI
+  - period: 2016 – 2017
+    title: Model-Driven Engineering
+    kind: Master's Degree in Computer Science
+    role: Main instructor
+    org: University of L'Aquila
+supervision:
+  - { period: 2023 – now, name: Thi Dinh Tran, topic: Distilling Reference Architectures from Open Source Repositories }
+  - { period: 2021 – now, name: Rickson Pereira, topic: Automated Generation and Configuration of Domain-Specific Recommender Systems }
+  - { period: 2020 – now, name: Adiel Tuyishime, topic: Modeling Environment of REST APIs and Linked Open Data }
+  - { period: 2018 – 2023, name: Maria Teresa Rossi, topic: Supporting Smart Cities Quality Evaluation Exploiting Model-Driven Engineering, note: Completed March 2023 }
+theses:
+  - title: Transformation chaining based on domain-specific custom information loss
+    text: >-
+      Model transformations are crucial in MDE for refactoring, simulation and code generation,
+      but they are hard to design, implement and verify. Chaining existing transformations
+      improves reuse. When several chains bridge a source and a target metamodel, the best one
+      can be selected by quality criteria such as coverage and information loss. The thesis
+      extends existing algorithms to support a domain-specific notion of importance that can be
+      refined at the instance level.
+    references:
+      - text: "Basciani, Di Pompeo, Di Ruscio, Iovino, Pierantonio. Integrating semantic reasoning in information loss-based transformation chain rankers. SAC 2021."
+        url: https://doi.org/10.1145/3412841.3442024
+      - text: "Basciani et al. Automated selection of optimal model transformation chains via shortest-path algorithms. IEEE TSE 46(3), 2018."

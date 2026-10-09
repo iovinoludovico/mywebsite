@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { project: CollectionEntry<'projects'>; summary?: string }
+const { project, summary } = Astro.props;
+const d = project.data;
+---
+<a class="project" href={`/projects/${project.id}/`}>
+  <span class="meta">{d.type} · {d.role}{d.funding ? ` · ${d.funding}` : ''}</span>
+  <span class="title">{d.short === d.title ? d.title : d.short}</span>
+  <span class="summary">{summary ?? d.summary}</span>
+</a>
+
+<style>
+  .project {
+    display: block; background: var(--card-dark-bg); color: var(--card-dark-ink);
+    text-decoration: none; border-radius: var(--radius-md); padding: 24px;
+    transition: transform 120ms ease;
+  }
+  .project:hover { color: var(--card-dark-ink); transform: translateY(-2px); }
+  .meta { display: block; font-size: 12px; font-weight: 700; color: var(--accent-on-dark); }
+  .title { display: block; font-size: 20px; font-weight: 800; margin: 6px 0; }
+  .summary { display: block; font-size: var(--fs-small); color: var(--card-dark-text); }
+  @media (prefers-reduced-motion: reduce) { .project { transition: none; } }
+</style>

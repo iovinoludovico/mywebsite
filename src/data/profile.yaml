@@ -1,0 +1,58 @@
+# Edit this file to change the hero, bio and links.
+name: Ludovico Iovino
+title: Associate Professor of Computer Science
+affiliation: Gran Sasso Science Institute (GSSI)
+affiliationUrl: https://www.gssi.it/
+location: L'Aquila, Italy
+photo: /images/profile.jpeg
+tagline: >-
+  I build modeling languages, tools and architectures that make complex software
+  systems (from smart cities to digital twins) easier to design, evolve and trust.
+bio:
+  - >-
+    I hold a Ph.D. in Computer Science and I am an Associate Professor in the Computer
+    Science department of the Gran Sasso Science Institute (GSSI) in L'Aquila.
+  - >-
+    The GSSI is an international PhD school and a centre for advanced studies in physics,
+    mathematics, computer science and social sciences, instituted as an Italian graduate
+    school of advanced studies in 2016 after a three-year experimental period.
+# Metrics live in src/data/metrics.json (Scholar automatic, Scopus by hand).
+research:
+  - title: Model-Driven Engineering & Low-Code
+    image: /images/research/mde.webp
+    text: >-
+      Foundations and applications of MDE in different domains, including the coupled
+      evolution of metamodels and domain-specific languages (DSLs).
+  - title: Smart & Sustainable Cities
+    image: /images/research/smart-cities.png
+    text: >-
+      Urban digital twins, modeling of smart cities and KPI assessment using DSLs and
+      quality evaluation systems.
+  - title: Software Architectures
+    image: /images/research/architectures.webp
+    text: >-
+      Modeling of software and reference architectures, architecture technical debt,
+      migration and evolution.
+  - title: Digital Twins
+    image: /images/research/digital-twins.webp
+    text: >-
+      Digital twin modeling with the models@runtime paradigm and software visualization
+      techniques.
+contact:
+  address: "GSSI, Viale Rendina, L'Aquila, Italy"
+  # Assembled client-side to deter scrapers.
+  emailUser: ludo
+  emailDomain: ludovicoiovino.it
+  phone: "+39 0862 4280 250"
+cvUrl: https://www.resumonk.com/47rC_ch5wSC2pcYCFq1nRA?nb
+links:
+  - { label: Google Scholar, url: "https://scholar.google.com/citations?user=9LQwMlMAAAAJ" }
+  - { label: ORCID, url: "https://orcid.org/0000-0001-6552-2609" }
+  - { label: Scopus, url: "https://www.scopus.com/authid/detail.uri?authorId=36961136600" }
+  - { label: GitHub, url: "https://github.com/iovinoludovico" }
+  - { label: LinkedIn, url: "https://www.linkedin.com/in/ludovico-iovino/" }
+  - { label: X / Twitter, url: "https://twitter.com/ludovicoiovino" }
+memberships:
+  - { name: Gran Sasso Tech, url: "https://www.gransassotech.org/", logo: /images/logos/gransasso-tech.webp }
+  - { name: CINI Smart Cities & Communities Lab, url: "https://www.consorzio-cini.it/index.php/it/laboratori-nazionali/smart-cities", logo: /images/logos/cini-smart-cities.png }
+  - { name: GSSI Knowledge & Technology Transfer, url: "https://www.gssi.it/gssi-society/ktt", logo: /images/logos/gssi.png }

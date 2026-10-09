@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Timeline from '../components/Timeline.astro';
+import { profile, cv } from '../lib/data';
+---
+<Base title="Curriculum vitae" description="Academic positions, education and awards of Ludovico Iovino.">
+  <section class="card">
+    <h1 class="page-title">Curriculum vitae</h1>
+    <p class="lead">Academic positions and education. The full CV is available as a separate document.</p>
+    <p class="actions"><a class="btn" href={profile.cvUrl} rel="noopener">Full CV</a></p>
+  </section>
+  <section class="card"><h2>Experience</h2><Timeline items={cv.experience} /></section>
+  <section class="card"><h2>Education</h2><Timeline items={cv.education} /></section>
+  <section class="card">
+    <h2>Awards</h2>
+    <ul class="rows">
+      {cv.awards.map((a) => <li><div class="row-title">{a.title} · {a.year}</div><div class="row-meta">{a.venue}</div></li>)}
+    </ul>
+    <p class="small"><a href="/service/#awards">Details →</a></p>
+  </section>
+</Base>
+
+<style>.actions { margin-top: 20px; }</style>

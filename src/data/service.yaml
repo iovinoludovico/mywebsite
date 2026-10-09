@@ -1,0 +1,45 @@
+editorial:
+  - period: 2023 – now
+    role: Editorial Board Member
+    venue: Journal of Computer Languages (COLA)
+    url: https://www.sciencedirect.com/journal/journal-of-computer-languages
+    certificate: /docs/cola-editorial-board-certificate.pdf
+  - period: 2023 – 2024
+    role: Guest Editor
+    venue: Journal of Systems and Software (JSS)
+    detail: Special issue "Model-Driven Engineering for Software Architecture"
+    url: https://www.sciencedirect.com/journal/journal-of-systems-and-software
+  - period: 2022 – 2023
+    role: Guest Editor
+    venue: Software and Systems Modeling (SoSyM)
+    detail: Theme section "Models and Evolution"
+    url: https://www.sosym.org/theme_sections/cfp/cfp-SoSyM-TS-ME21.pdf
+  - period: "2022"
+    role: Guest Editor
+    venue: Journal of Computer Languages (COLA)
+    detail: Special issue "Foundations and Practice of Visual Modeling (FPVM)"
+  - period: "2022"
+    role: Review Board Member
+    venue: IEEE Transactions on Software Engineering (TSE)
+    url: https://www.computer.org/csdl/journal/ts
+  - period: "2021"
+    role: Guest Editor
+    venue: Journal of Computer Languages (COLA)
+    detail: Special issue "Methods, Tools and Languages for Model-driven Engineering and Low-code Development"
+    url: https://www.sciencedirect.com/journal/journal-of-computer-languages/special-issue/105JHSVN5X8
+  - period: 2019 – 2020
+    role: Guest Editor
+    venue: Journal of Object Technology (JOT)
+    detail: Special issue "Models and Evolution"
+    url: https://www.jot.fm/issues/issue_2021_01/
+reviewer:
+  - Systems Engineering (Wiley)
+  - Software and Systems Modeling (SoSyM)
+  - ACM Transactions on the Web
+  - Software Quality Journal
+  - IEEE Software
+  - Journal of Systems and Software (JSS)
+  - Control Engineering Practice
+  - IEEE Transactions on Software Engineering (TSE)
+  - Journal of Internet Services and Applications (JISA)
+  - Journal of Computer Languages (COLA)

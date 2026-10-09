@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Metrics from '../components/Metrics.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { profile, selectedPublications, teaching, service } from '../lib/data';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base>
+  <section class="card">
+    <span class="pill">Model-Driven Engineering · Software Architecture · Digital Twins</span>
+    <h1 class="page-title">{profile.tagline}</h1>
+    {profile.bio.map((p) => <p class="lead">{p}</p>)}
+    <div class="actions">
+      <a class="btn" href="/publications/">Publications</a>
+      <a class="btn btn--ghost" href="/cv/">Curriculum vitae</a>
+    </div>
+  </section>
+
+  <Metrics />
+
+  <section class="grid-2" aria-label="Research areas">
+    {profile.research.map((r) => (
+      <div class="card card--tight">
+        <h3>{r.title}</h3>
+        <p class="muted small">{r.text}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="card">
+    <div class="section-head">
+      <h2>Selected publications</h2>
+      <a href="/publications/">See all →</a>
+    </div>
+    <ul class="rows">
+      {selectedPublications.map((p) => (
+        <li>
+          <div class="row-title">{p.url ? <a href={p.url}>{p.title}</a> : p.title}</div>
+          <div class="row-meta">{p.authors} · {p.venue}, {p.year}</div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-label="Funded projects">
+    <div class="section-head pad"><h2>Funded projects</h2><a href="/research/">Research →</a></div>
+    <div class="grid-3">
+      {projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <div class="card card--tight">
+      <h2>Teaching</h2>
+      {teaching.courses.slice(0, 2).map((c) => <p class="small">{c.title} · <span class="subtle">{c.org}</span></p>)}
+      <p class="small">{teaching.supervision.length} PhD students supervised · <a href="/teaching/#theses">open theses</a></p>
+    </div>
+    <div class="card card--tight">
+      <h2>Service</h2>
+      {service.editorial.slice(0, 3).map((e) => <p class="small">{e.role} · <span class="subtle">{e.venue}</span></p>)}
+      <p class="small"><a href="/service/">All editorial and review roles →</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead + .lead { margin-top: 12px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .pad { padding: 0 4px; }
+  .pad h2 { font-size: var(--fs-h2); font-weight: 800; }
+  section > .section-head.pad { margin-bottom: 12px; }
+</style>

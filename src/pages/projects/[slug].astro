@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+---
+<Base title={d.short} description={d.summary}>
+  <article class="card">
+    <a href="/research/" class="small back">← Research</a>
+    <span class="pill">{d.type} · {d.role}</span>
+    <h1 class="page-title">{d.title}</h1>
+    <dl class="facts">
+      {d.funding && <div><dt>Funding</dt><dd>{d.funding}</dd></div>}
+      <div><dt>Role</dt><dd>{d.role}</dd></div>
+      <div><dt>Programme</dt><dd>{d.type}</dd></div>
+      {d.partners.length > 0 && <div class="wide"><dt>Partners</dt><dd>{d.partners.join(', ')}</dd></div>}
+    </dl>
+    <div class="prose"><Content /></div>
+  </article>
+</Base>
+
+<style>
+  .back { display: inline-block; margin-bottom: 16px; font-weight: 700; text-decoration: none; }
+  .back + .pill { display: table; }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0; padding: 20px 0; border-block: 1px solid var(--line); }
+  .facts .wide { grid-column: 1 / -1; }
+  dt { font-size: var(--fs-xs); font-weight: 700; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.05em; }
+  dd { margin: 2px 0 0; font-weight: 600; }
+  .prose { max-width: 720px; color: var(--muted); }
+  .prose :global(strong) { color: var(--ink); }
+  .prose :global(li) { margin-bottom: 8px; }
+  @media (max-width: 560px) { .facts { grid-template-columns: minmax(0, 1fr); } }
+</style>

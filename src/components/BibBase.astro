@@ -1,0 +1,18 @@
+---
+// BibBase reads publications.bib from GitHub at view time, so publications update without a rebuild.
+// The JSONP response uses document.write, so this must stay a classic, synchronous, in-place script.
+import '../styles/bibbase.css';
+import { BIBBASE_URL, BIBBASE_PAGE, profile } from '../lib/data';
+const scholar = profile.links.find((l) => l.label === 'Google Scholar')?.url;
+---
+<div class="bibbase-host">
+  <p class="loading small subtle">Loading publications…</p>
+  <script is:inline src={BIBBASE_URL}></script>
+  <noscript>
+    <p>The publication list needs JavaScript. You can browse it on <a href={BIBBASE_PAGE}>BibBase</a> or <a href={scholar}>Google Scholar</a>.</p>
+  </noscript>
+</div>
+
+<style>
+  .bibbase-host:has(#bibbase_body) .loading { display: none; }
+</style>

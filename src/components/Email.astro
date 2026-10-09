@@ -1,0 +1,7 @@
+---
+// Renders the email obfuscated in the HTML; a tiny script in Base.astro turns it into a mailto link.
+import { profile } from '../lib/data';
+const { class: className } = Astro.props;
+const { emailUser, emailDomain } = profile.contact;
+---
+<a class:list={['js-email', className]} href="/contact/" data-u={emailUser} data-d={emailDomain}>{emailUser} [at] {emailDomain}</a>
