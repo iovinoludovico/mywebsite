@@ -32,7 +32,7 @@
   --space: 24px;
   --gutter: 32px;
 
-  --fs-display: clamp(28px, 4vw, 40px);
+  --fs-display: clamp(24px, 3.4vw, 34px);
   --fs-h2: 26px;
   --fs-h3: 18px;
   --fs-body: 16px;
