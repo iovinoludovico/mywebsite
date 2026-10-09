@@ -54,7 +54,7 @@ const jsonLd = {
       <main id="content" class="main">
         <slot />
         <footer class="site-footer small subtle">
-          © {new Date().getFullYear()} {profile.name} · {profile.affiliation}
+          © {new Date().getFullYear()} {profile.name} · {profile.affiliation} · <a href="/privacy/">Privacy</a>
         </footer>
       </main>
     </div>
@@ -81,4 +81,5 @@ const jsonLd = {
 
 <style>
   .site-footer { padding: 8px 4px 0; }
+  .site-footer a { color: inherit; }
 </style>
